@@ -1,0 +1,58 @@
+name: Elastic Beanstalk Deployment
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout source code
+      uses: actions/checkout@v2
+
+    - name: Use Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 19
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build and Zip
+      run: |
+        npm run
+        zip -r deploy.zip .
+
+    - name: Deploy to Elastic Beanstalk
+      uses: einaregilsson/beanstalk-deploy@v14
+      with:
+        aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        application_name: CommendaTest
+        environment_name: CommendaTest-env
+        version_label: ${{ github.run_id }}
+        region: ap-south-1
+        existing_bucket_name: elasticbeanstalk-ap-south-1-010928199877
+        deployment_package: deploy.zip
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+    
+#     - name: Checkout source code
+#       uses: actions/checkout@v1
+      
+#     - name: Elastic Beanstalk Deployment
+#       uses: kumarshivam12/Aws-ElasticBeanstalk@v1.3
+#       with:
+#         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#         APPLICATION-NAME: CommendaTest
+#         EB-ENV-NAME: CommendaTest-env
+#         AWS-REGION: ap-south-1 
+#         deploy-package-name: Application-${{ github.sha }}.zip
