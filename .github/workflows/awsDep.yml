@@ -36,6 +36,7 @@ jobs:
         environment_name: CommendaTest-env
         version_label: ${{ github.run_id }}
         region: ap-south-1
+        existing_bucket_name: elasticbeanstalk-ap-south-1-010928199877
         deployment_package: deploy.zip
 
 # jobs:
