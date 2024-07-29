@@ -22,4 +22,4 @@ jobs:
         EB-ENV-NAME: 
           description : CommendaTest-env
         AWS-REGION: 
-          description : ap-south-1
+          description : ap-south-1 
