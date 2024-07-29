@@ -22,4 +22,4 @@ jobs:
         APPLICATION-NAME: CommendaTest
         EB-ENV-NAME: CommendaTest-env
         AWS-REGION: ap-south-1 
-        deploy-package-name: Application-${{ github.event.sha }}.zip
+        deploy-package-name: Application-${{ github.sha }}.zip
