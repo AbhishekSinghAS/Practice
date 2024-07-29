@@ -36,7 +36,7 @@ jobs:
         environment_name: CommendaTest-env
         version_label: ${{ github.run_id }}
         region: ap-south-1
-        File: deploy.zip
+        deployment_package: deploy.zip
 
 # jobs:
 #   build:
